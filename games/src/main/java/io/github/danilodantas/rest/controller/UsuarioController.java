@@ -1,5 +1,6 @@
 package io.github.danilodantas.rest.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -33,12 +34,13 @@ public class UsuarioController {
 		usuarios.save(usuario);
 	}
 	
-	//BUSCAR CLIENTE
+	//BUSCAR USUARIO
 	@GetMapping("{id}")
 	public Usuario buscar(@PathVariable Integer id ) {
 		return usuarios.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "O usuário de id [" + id + "] não foi localizado.")); 
 	}
 
+	//DELETAR USUARIO
 	@DeleteMapping("{id}")
 	public String deletar(@PathVariable Integer id) {
 		Optional<Usuario> usuarioStatus = usuarios.findById(id);
@@ -50,6 +52,7 @@ public class UsuarioController {
 		}
 	}
 	
+	//ATUALIZAR USUARIO
 	@PatchMapping("{id}")
 	public Usuario atualizar(@PathVariable Integer id, @RequestBody Usuario usuario) {
 		Optional<Usuario> usuarioStatus = usuarios.findById(id);
@@ -62,6 +65,11 @@ public class UsuarioController {
 		}
 	}
 	
+	//BUSCAR TODOS OS USUARIOS
+	@GetMapping
+	public List<Usuario> listarTodos() {
+		return usuarios.findAll();
+	}
 	
 	
 	
